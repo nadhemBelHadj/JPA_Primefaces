@@ -1,0 +1,81 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+     
+<f:metadata>
+	<f:viewAction action="#{commandeMB.initListeClients}" />
+</f:metadata>
+
+    <h:head>
+    </h:head>
+ 
+    <h:body>
+      <h3>Ajout des commandes</h3>
+	
+	 
+	<h:form>
+		
+		<h:panelGrid columns="2" cellpadding="5">
+
+			<h:outputLabel for="montant" value="montant :" />
+			<p:inputText id="montant" value="#{commandeMB.commande.montantCom}"></p:inputText>
+
+		  	<h:outputLabel for="datecom" value="Date :" />
+			<p:inputText id="datecom" value="#{commandeMB.commande.dateCom}">
+				<f:convertDateTime pattern="dd-MM-yyyy" />
+			</p:inputText>  
+
+			<h:outputLabel for="liste_client" value="Client :" />
+			<p:selectOneMenu id="liste_client" value="#{commandeMB.commande.client}"  >
+			 	
+				<f:selectItems value="#{commandeMB.listeClients}" var="clt"
+					itemLabel="#{clt.nom}" itemValue="#{clt}" />
+			</p:selectOneMenu>  
+
+			<p:commandButton value="Ajouter" action="#{commandeMB.add}"></p:commandButton>
+		</h:panelGrid>
+	</h:form>
+        
+        <h1>Liste des commandes</h1>
+    	<h:form>
+    		<p:dataTable value="#{commandeMB.listeCommandes}" var="com" >
+    			<p:column>
+    				<!-- column header -->
+    				<f:facet name="header">NumCom</f:facet>
+    				<!-- row record -->
+    				<h:outputText value="#{com.numCom}" />
+    			</p:column>
+    			
+    			<p:column>
+    				<f:facet name="header">Montant</f:facet>
+    				<h:outputText value="#{com.montantCom}" />
+    			</p:column>
+    			
+    			<p:column>
+    				<f:facet name="header">Date</f:facet>
+    				<h:outputText value="#{com.dateCom}" >
+    				    <f:convertDateTime pattern="dd-MM-yyyy" />
+    				</h:outputText>
+    			</p:column>
+    			
+    			
+    			<p:column>
+    				<f:facet name="header">Client</f:facet>
+    				<h:outputText value="#{com.client.nom}" />
+    			</p:column>
+    			
+    			 <p:column style="width:4%">  
+				 	<p:commandButton id="modifier"   icon="ui-icon-disk" value="" title="Modifier"> 
+				 	</p:commandButton>  
+				 </p:column>  
+				 
+				 <p:column style="width:4%"> 
+				 	<p:commandButton id="supprimer"  icon="ui-icon-closethick" value="" title="Supprimer">  
+				 	</p:commandButton>  
+				 </p:column>  
+    			
+    		</p:dataTable>
+   </h:form>
+    </h:body>
+</html>
